@@ -1,5 +1,5 @@
+import random
 from dice_stats import *
+import math
 
-kolichestvo = random.randint(1, 6)
-print(kolichestvo)
-print(simulate_dice(kolichestvo))
+print(found_symbol("helloworld", "l"))
