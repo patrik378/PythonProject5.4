@@ -1,3 +1,4 @@
+import math
 import random
 
 # def simulate_dice(kolvo):
@@ -72,3 +73,98 @@ def found_symbol(text: str, symbol: str) -> int:
         if x == symbol:
             symbol_counter += 1
     return symbol_counter
+
+##1, 5.6
+def clamp(value: int, min_value: int, max_value: int) -> int:
+    if value < min_value:
+        return min_value
+    if value > max_value:
+        return max_value
+    return value
+
+##2, 5.6
+def build_full_name(first_name: str, last_name: str, middle_name: str ="") -> str:
+    """выдаёт фамилию имя отчество"""
+    return f"{build_correct_name(first_name)} {build_correct_name(last_name)} {build_correct_name(middle_name)}"
+
+def build_correct_name(first_name: str) -> str:
+    correct_first_name = ""
+    if first_name[0] == " " or first_name[-1] == " ":
+        correct_first_name = first_name.replace(" ", "")
+    else:
+        correct_first_name = first_name
+    return correct_first_name.capitalize()
+
+##3, 5.6
+def normalize_space(text: str) -> str:
+    """убирает лишние пробелы"""
+    return " ".join(text.split())
+
+def count_words(text: str) -> int:
+    """считает слова (кол-во всех слов)"""
+    return len(text.split())
+def average_word_length(text: str) -> int:
+    """считает среднюю длину слов"""
+    word_length = []
+    for i in text.split():
+        word_length.append(len(i))
+    average = sum(word_length) / len(word_length)
+    return average
+
+##4, 5.6
+def calc_discount_price(price: int, discount: int) -> float:
+    """считает цену со скидкой для товара"""
+    return price * (1 - discount / 100)
+
+def calc_total(price: int, kolichestvo: int) -> int:
+    """итоговая стоимость"""
+    return price * kolichestvo
+
+def build_receipt(name: str, price: int, quantity: int, discount: int) -> str:
+    """ввыдаёт чек"""
+    return  (f"Товар: {name}\n"
+            f"Цена со скидкой: {calc_discount_price(price, discount)}\n"
+            f"Количество: {quantity}\n"
+            f"Итого: {calc_discount_price(price, discount) * quantity}\n")
+
+
+##5, 5.6
+def build_scores_table(names: list, scores: list) -> list:
+    """выдаёт имя и его балл"""
+    names_and_scores = zip(names, scores)
+    for no, score in enumerate(names_and_scores, 1):
+        print(f"{no}) {score[0]} - {score[1]}")
+
+##6, 5.6
+def circle_length(radius: int) -> float:
+    """длина окружности"""
+    return 2*math.pi*radius
+def circle_area(radius: int) -> float:
+    """площадь круга"""
+    return math.pi*(radius**2)
+def circle_report(radius: int) -> float:
+    """отчёт об окружности"""
+    print(f"Радиус: {circle_length(radius)}\nДлина: {circle_length(radius)}\nПлощадь: {circle_area(radius)}")
+
+##7, 5.6
+def pick_char(alphabet: str) -> str:
+    """выбирает рандомный символ из alphabet"""
+    return random.choice(alphabet)
+def build_password(length: int, alphabet: str) -> str:
+    """генератор паролей"""
+    password = ""
+    for i in range(length):
+        random_reester = random.randint(1,2)
+        if random_reester == 1:
+            password += pick_char(alphabet).lower()
+        elif random_reester == 2:
+            password += pick_char(alphabet).upper()
+    return password
+
+##8, 5.6
+def num_limit(start=0, number=0, end=100) -> int:
+    """ограничить число границами"""
+    print(f"начало: {start}\nчисло: {number}\nконец: {end}")
+def text_report(text: str) -> str:
+    """отчёт о тексте"""
+    print(f"текст без лишних пробелов: {normalize_space(text)}\nколичество слов: {count_words(text)}\nсредняя длина слов: {average_word_length(text)}")
