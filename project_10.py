@@ -5,19 +5,27 @@ cards = [{"question": "как называется язык, в котором �
          {"question": "что значит car на русском?", "answer": "машина"},
          {"question": "что значит cat на русском?", "answer": "кошка"}]
 correct_answers = 0
-repeated_questions = []
+score_percent = 0
+
 
 while True:
-    for i in range(len(cards)):
+    while correct_answers != 4:
         question = random.randint(0, 3)
         print(cards[question]["question"])
         correct_answers = answer_question(cards[question], correct_answers)
 
-    print(f"у вас {correct_answers} правильных ответов")
+    print(f"вы ответили на все вопросы правильно, поздравляю!")
+    correct_answers = 0
     print("хотите ещё?")
 
     otvet = input("напишите, 1 (да) или 2 (нет) ").strip()
 
+    while otvet == '':
+        print("вы написали пустую строку, повторите ваш вариант ответа")
+        otvet = input("ответ: ").strip()
+    while otvet != '1' and otvet != '2':
+        print("такого варианта нет, повторите ваш ответ")
+        otvet = input("введите ответ ещё раз ").strip()
     if otvet == '2':
         break
 
