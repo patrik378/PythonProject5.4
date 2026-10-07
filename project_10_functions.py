@@ -6,6 +6,7 @@ from enum import nonmember
 def answer_question(questions, correct_answers):
     """проверка ответа"""
     answer = input().lower().strip()
+    errors = ''
     while answer == '':
         print("Вы ввели пустую строку, введите ещё раз ваш ответ")
         answer = input("ответ: ").lower().strip()
@@ -14,7 +15,24 @@ def answer_question(questions, correct_answers):
         correct_answers += 1
     else:
         print("неверно")
-    return correct_answers
+        errors = questions["question"]
+    return correct_answers, errors
+
+def repeat_errors(errors, answers):
+    corrects = 0
+    while corrects != len(errors):
+        nomer = 0
+        print(errors[nomer])
+        answer = input().lower().strip()
+        while answer == '':
+            print(f"вы ввели пустую строку\nвведите ещё раз")
+            answer = input().lower().strip()
+        if answer == answers[nomer]:
+            corrects += 1
+            print(f'верно')
+        else:
+            print(f'неверно')
+
 
 def result(correct_answers):
     """говорит результат в зависимости от процентов
