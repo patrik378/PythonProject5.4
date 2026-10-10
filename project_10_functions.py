@@ -16,13 +16,13 @@ def answer_question(questions, correct_answers):
     else:
         print("неверно")
         errors = questions["question"]
-    return correct_answers
+    return correct_answers, errors
 
 def repeat_errors(errors, answers):
     """прогон по ошибкам"""
     corrects = 0
+    nomer = 0
     while corrects != len(errors):
-        nomer = 0
         print(errors[nomer])
         answer = input().lower().strip()
         while answer == '':
@@ -30,22 +30,25 @@ def repeat_errors(errors, answers):
             answer = input().lower().strip()
         if answer == answers[nomer]:
             corrects += 1
+            nomer += 1
             print(f'верно')
-        else:
+        elif answer != answers[nomer]['answer']:
             print(f'неверно')
 
 
-def result(correct_answers):
+
+def result(correct_answers, questions):
     """говорит результат в зависимости от процентов
        правильных ответов от всех вопросов"""
 
-    if correct_answers == 100:
+    score = correct_answers / questions * 100
+    if score == 100:
         print(f"отлично!")
-    elif correct_answers > 50:
+    elif score > 50:
         print(f"неплохо, но можно и лучше")
-    elif correct_answers == 50:
+    elif score == 50:
         print(f"вы ответили ровно на половину вопросов верно, неплохо")
-    elif correct_answers < 50:
+    elif score < 50:
         print(f"пока слабо, стоит повторить материал")
 
 def found_empty_string(answer):
@@ -69,8 +72,10 @@ def add_cards(new_card):
     return new_card
 
 def play_cards(cards):
+    """играть в карточки"""
     correct_answers = 0
-    score_percent = 0
+    error_question = ''
+    error_questions = []
 
     while correct_answers <  4:
 
@@ -78,10 +83,18 @@ def play_cards(cards):
 
         print(cards[question]['question'])
 
-        correct_answers = answer_question(cards[question], correct_answers)
+        correct_answers, error_question = answer_question(cards[question], correct_answers)
+        if error_question != '':
+            error_questions.append(error_question)
+    result(correct_answers, len(error_questions)+correct_answers)
+    if len(error_questions) != 0:
+        print("хотели бы вы посмотреть ошибки?\n1. да\n2. нет")
+        answer = input().lower().strip()
+        found_empty_string(answer)
 
+        if answer == '1':
+            print(f"ваши ошибки {error_questions}")
     correct_answers = 0
-    score_percent = 0
 
 
 

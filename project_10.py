@@ -34,7 +34,7 @@ while True:
             print(f'вы играете в карточки')
             play_cards(cards)
 
-            print(f'хотите ещё?\n1. да\n2. нет')
+            print(f'хотели бы сыграть ещё раз?\n1. да\n2. нет')
             your_choice = input().lower().strip()
             found_empty_string(your_choice)
             if your_choice == '2':
